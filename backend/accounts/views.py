@@ -61,13 +61,33 @@ class VerifyUserCodeView(GenericAPIView):
                 'message': 'Invalid OTP code or expired',
             }, status=status.HTTP_400_BAD_REQUEST)
 
+from django_tenants.utils import schema_context
+from django.contrib.auth import authenticate
+from rest_framework.permissions import AllowAny
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.parsers import JSONParser
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from rest_framework import permissions
 
-class LoginUserVeiw(GenericAPIView):
-    serializer_class = LoginSerialiazer
+
+from django.views.decorators.csrf import csrf_exempt
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from django.contrib.auth import authenticate
+
+class LoginUserVeiw(APIView):
     def post(self, request):
-        serializer=self.serializer_class(data=request.data, context={'request':request})
-        serializer.is_valid(raise_exception=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        email = request.data.get('email')
+        password = request.data.get('password')
+        user = authenticate(request, email=email, password=password)
+        if user is not None:
+            # رجّع التوكن أو الداتا
+            return Response({"message": "Login successful"})
+        return Response({"detail": "Invalid credentials"}, status=status.HTTP_403_FORBIDDEN)
+
 
     
 class TestAuthentiactionView(GenericAPIView):
