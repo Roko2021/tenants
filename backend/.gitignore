@@ -1,0 +1,40 @@
+# بيئة بايثون
+env/
+venv/
+ENV/
+.venv/
+__pycache__/
+*.py[cod]
+*.sqlite3
+
+# ملفات Django
+*.log
+*.pot
+*.pyc
+*.pyo
+*.db
+*.sqlite3
+
+# ملفات النظام
+.DS_Store
+Thumbs.db
+
+# إعدادات VSCode أو PyCharm
+.vscode/
+.idea/
+
+# ملفات الترحيل
+*/migrations/
+!*/migrations/__init__.py
+
+# ملفات static/media المؤقتة
+staticfiles/
+media/
+
+# ملفات مخفية أو cache
+*.bak
+*.swp
+*.tmp
+
+# إعدادات البيئة
+.env
